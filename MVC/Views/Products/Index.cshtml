@@ -3,14 +3,34 @@
 @*Model namespace using directive should be added to _ViewImports.cshtml.*@
 
 @{
+    @*
+        View'lar içerisinde olabildiği kadar C# kodları yazılmamalıdır,
+        view'ların görevi controller action'ından aldığı gerek model gerekse
+        ViewData, ViewBag veya TempData üzerinden aldığı verileri göstermektir!
+    *@
+
     ViewData["Title"] = "Products";
+
+    int count = Model.Count();
+    string countDisplay = "";
+    if (count == 0)
+        countDisplay = "No products found.";
+    else if (count == 1)
+        countDisplay = count + " product found.";
+    else
+        countDisplay = count + " products found.";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New Product</a>
 </p>
+
+<p class="text-success">
+   @countDisplay
+</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -18,7 +38,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             @* <th>
-                @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Description)
             </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.StockAmount)
@@ -36,45 +56,46 @@
                 @Html.DisplayNameFor(model => model.Category)
             </th>
             @* <th>
-                @Html.DisplayNameFor(model => model.Guid)
+            @Html.DisplayNameFor(model => model.Guid)
             </th> *@
             <th></th>
         </tr>
     </thead>
     <tbody>
-		@foreach (var item in Model) {
-				<tr>
-					<td>
-						@Html.DisplayFor(modelItem => item.Name)
-					</td>
-					@* <td>
-						@Html.DisplayFor(modelItem => item.Description)
-					</td> *@
-					<td>
-						@Html.DisplayFor(modelItem => item.StockAmount)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.UnitPriceDisplay)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.ExpirationDateDisplay)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.IsContinuedDisplay)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.Category.Name)
-					</td>
-					@* <td>
-						@Html.DisplayFor(modelItem => item.Guid)
-					</td> *@
-					<td>
-						<a asp-action="Details" asp-route-id="@item.Id">Details</a>&nbsp;|&nbsp;
-						<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>&nbsp;|&nbsp;
-						<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-					</td>
-				</tr>
-		}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @* <td>
+            @Html.DisplayFor(modelItem => item.Description)
+            </td> *@
+                <td>
+                    @Html.DisplayFor(modelItem => item.StockAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPriceDisplay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpirationDateDisplay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsContinuedDisplay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                @* <td>
+            @Html.DisplayFor(modelItem => item.Guid)
+            </td> *@
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>&nbsp;|&nbsp;
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>&nbsp;|&nbsp;
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

@@ -3,7 +3,7 @@
 @*Model namespace using directive should be added to _ViewImports.cshtml.*@
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Product Details";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -28,25 +28,25 @@
             @Html.DisplayNameFor(model => model.StockAmount)
         </dt>
         <dd class="col-10">
-            @Html.DisplayFor(model => model.StockAmount)
+            @Html.DisplayFor(model => model.StockAmount) Unit(s)
         </dd>
         <dt class="col-2">
-            @Html.DisplayNameFor(model => model.UnitPrice)
+            @Html.DisplayNameFor(model => model.UnitPriceDisplay)
         </dt>
         <dd class="col-10">
-            @Html.DisplayFor(model => model.UnitPrice)
+            @Html.DisplayFor(model => model.UnitPriceDisplay)
         </dd>
         <dt class="col-2">
-            @Html.DisplayNameFor(model => model.ExpirationDate)
+            @Html.DisplayNameFor(model => model.ExpirationDateDisplay) Month/Day/Year
         </dt>
         <dd class="col-10">
-            @Html.DisplayFor(model => model.ExpirationDate)
+            @Html.DisplayFor(model => model.ExpirationDateDisplay)
         </dd>
         <dt class="col-2">
-            @Html.DisplayNameFor(model => model.IsContinued)
+            @Html.DisplayNameFor(model => model.IsContinuedDisplay)
         </dt>
         <dd class="col-10">
-            @Html.DisplayFor(model => model.IsContinued)
+            @Html.DisplayFor(model => model.IsContinuedDisplay)
         </dd>
         <dt class="col-2">
             @Html.DisplayNameFor(model => model.Category)
@@ -64,7 +64,7 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>&nbsp;|&nbsp;
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to Product List</a>
 </div>
 
 
