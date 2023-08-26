@@ -23,12 +23,16 @@ namespace Business.DataAccess.Entities
         public int StockAmount { get; set; }
 
         [Range(0, double.MaxValue)]
+        [DisplayName("Unit Price")]
         public double UnitPrice { get; set; }
 
+        [DisplayName("Expiration Date")]
         public DateTime? ExpirationDate { get; set; }
 
+        [DisplayName("Continued")]
         public bool IsContinued { get; set; }
 
+        [DisplayName("Category")]
         public int? CategoryId { get; set; }
 
         public Category Category { get; set; } // Bir üründe bir category olabilir.
