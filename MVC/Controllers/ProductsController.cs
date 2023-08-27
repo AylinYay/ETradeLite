@@ -3,6 +3,7 @@ using Business.DataAccess.Entities;
 using Business.DataAccess.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace MVC.Controllers
 {
@@ -57,23 +58,31 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 // TODO: Add insert service logic here
-                return RedirectToAction(nameof(Index));
+                var result = _productService.Add(product);
+                if (result.IsSuccessful)
+                {
+                    TempData["Message"] = result.Message;
+                    return RedirectToAction(nameof(Index));
+                }
+                //ViewData["Message"] = result.Message;
+                ModelState.AddModelError("", result.Message);
             }
             // Add get related items service logic here to set ViewData if necessary and update null parameter in SelectList with these items
-            ViewData["CategoryId"] = new SelectList(null, "Id", "Name", product.CategoryId);
+            //ViewData["CategoryId"] = new SelectList(null, "Id", "Name", product.CategoryId);
+            ViewBag.CategoryId = new SelectList(_categoryService.Query().ToList(), "Id", "Name");
             return View(product);
         }
 
         // GET: Products/Edit/5
         public IActionResult Edit(int id)
         {
-            Product product = null; // TODO: Add get item service logic here
+            Product product = _productService.Query().SingleOrDefault(p => p.Id == id);
             if (product == null)
             {
-                return NotFound();
+                return View("_Error", "Product not found!");
             }
             // Add get related items service logic here to set ViewData if necessary and update null parameter in SelectList with these items
-            ViewData["CategoryId"] = new SelectList(null, "Id", "Name", product.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_categoryService.Query().ToList(), "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -86,21 +95,26 @@ namespace MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                // TODO: Add update service logic here
-                return RedirectToAction(nameof(Index));
+                var result = _productService.Update(product); // TODO: Add update service logic here
+                if (result.IsSuccessful)
+                {
+                    TempData["Message"] = result.Message;
+                    return RedirectToAction(nameof(Index));
+                }
+                ModelState.AddModelError("", result.Message);
             }
             // Add get related items service logic here to set ViewData if necessary and update null parameter in SelectList with these items
-            ViewData["CategoryId"] = new SelectList(null, "Id", "Name", product.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_categoryService.Query().ToList(), "Id", "Name", product.CategoryId);
             return View(product);
         }
 
         // GET: Products/Delete/5
         public IActionResult Delete(int id)
         {
-            Product product = null; // TODO: Add get item service logic here
+            Product product = _productService.Query().SingleOrDefault(p => p.Id == id); // TODO: Add get item service logic here
             if (product == null)
             {
-                return NotFound();
+                return View("_Error", "Product not found!");
             }
             return View(product);
         }
@@ -110,8 +124,11 @@ namespace MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            // TODO: Add delete service logic here
+            var result = _productService.Delete(p => p.Id == id); // TODO: Add delete service logic here
+            TempData["Message"] = result.Message;
             return RedirectToAction(nameof(Index));
         }
-	}
+    }
 }
+
+

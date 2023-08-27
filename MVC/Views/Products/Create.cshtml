@@ -19,6 +19,12 @@
         @using (Html.BeginForm("Create")) @* (default method post)*@
         {
             @Html.AntiForgeryToken()
+
+           @*  @if (ViewData["Message"] is not null)
+            {
+                <p class="text-danger">@ViewBag.Message</p>
+            } *@
+
         @* <div asp-validation-summary="All" class="text-danger"></div> *@
             @Html.ValidationSummary(false, null, new { @class = "text-danger" })
 
@@ -63,13 +69,7 @@
                     <span asp-validation-for="ExpirationDate" class="text-danger"></span>
                 </div>
             </div>
-            <div class="row mb-3">
-                <label asp-for="IsContinued" class="col-2 col-form-label"></label>
-                <div class="col-5" style="padding-top: 7px;">
-                    @*<input class="form-check-input" asp-for="IsContinued" />*@
-                    @Html.CheckBoxFor(p => p.IsContinued, new { @class="form-check-input" })
-                </div>
-            </div>
+            
             <div class="row mb-3">
                 <label asp-for="CategoryId" class="col-2 col-form-label"></label>
                 <div class="col-5">

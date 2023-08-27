@@ -9,22 +9,25 @@ namespace Business.DataAccess.Entities
 {
     public partial class Product : Record
     {
-        [Required]
+        //[Required]
+        [Required(ErrorMessage = "{0} is required!")]
         //[StringLength(200)]
-        [MinLength(3)]
-        [MaxLength(200)]
+        [MinLength(3, ErrorMessage = "{0} must be minimum {1} characters!")]
+        [MaxLength(200, ErrorMessage = "{0} must be maximum {1} characters!")]
         public string Name { get; set; }
 
-        [StringLength(300)]
+        [StringLength(300, ErrorMessage = "{0} must be maximum {1} characters!")]
         public string Description { get; set; }
 
-        [Range(0, 1000000)]
+        [Required(ErrorMessage = "{0} is required!")]
+        [Range(0, 1000000, ErrorMessage = "{0} must be between {1} and {2}!")]
         [DisplayName("Stock Amount")]
-        public int StockAmount { get; set; }
+        public int? StockAmount { get; set; }
 
-        [Range(0, double.MaxValue)]
+        [Required(ErrorMessage = "{0} is required!")]
+        [Range(0, double.MaxValue, ErrorMessage = "{0} must be {1} or positive!")]
         [DisplayName("Unit Price")]
-        public double UnitPrice { get; set; }
+        public double? UnitPrice { get; set; }
 
         [DisplayName("Expiration Date")]
         public DateTime? ExpirationDate { get; set; }
@@ -32,6 +35,7 @@ namespace Business.DataAccess.Entities
         [DisplayName("Continued")]
         public bool IsContinued { get; set; }
 
+        
         [DisplayName("Category")]
         public int? CategoryId { get; set; }
 

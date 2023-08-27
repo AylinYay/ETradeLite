@@ -1,6 +1,7 @@
 using Business.DataAccess.Contexts;
 using Business.DataAccess.Services;
 using Microsoft.EntityFrameworkCore;
+using static Business.DataAccess.Services.StoreServiceBase;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<Db>(options => options.UseSqlServer(connectionStri
 // Genelde AddScoped methodu kullanýlýr.
 builder.Services.AddScoped<ProductServiceBase, ProductService>();
 builder.Services.AddScoped<CategoryServiceBase, CategoryService>();
+builder.Services.AddScoped<StoreServiceBase, StoreService>();
 //TODO
 #endregion
 

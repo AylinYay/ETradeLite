@@ -8,60 +8,10 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.StockAmount)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.StockAmount) Unit(s)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.UnitPriceDisplay)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.UnitPriceDisplay)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.ExpirationDateDisplay) Month/Day/Year
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.ExpirationDateDisplay)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.IsContinuedDisplay)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.IsContinuedDisplay)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Guid)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Guid)
-        </dd>
-    </dl>
-</div>
+@* @Html.Partial("_Details", Model) *@
+@* @await Html.PartialAsync("_Details", Model) *@
+<partial name="_Details" model="Model" />
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>&nbsp;|&nbsp;
     <a asp-action="Index">Back to Product List</a>

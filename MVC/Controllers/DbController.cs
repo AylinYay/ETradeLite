@@ -23,6 +23,9 @@ namespace MVC.Controllers
             var categories = _db.Categories.ToList();
             _db.Categories.RemoveRange(categories);
 
+            var stores = _db.Stores.ToList();
+            _db.Stores.RemoveRange(stores);
+
             _db.Categories.Add(new Category()
             {
                 Name = "Computer",
@@ -87,6 +90,19 @@ namespace MVC.Controllers
                     }
                 }
             });
+
+            _db.Stores.Add(new Store()
+            {
+                Name = "Trendyol",
+                IsVirtual = true
+            });
+
+            _db.Stores.Add(new Store()
+            {
+                Name = "MediaMarkt",
+                IsVirtual = false
+            });
+
             _db.SaveChanges();
 
             //return Content("Database seed successful.");
