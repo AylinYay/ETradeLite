@@ -11,7 +11,7 @@ namespace Business.DataAccess.Contexts
         public Db CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<Db>();
-            optionsBuilder.UseSqlServer("server=.\\SQLAYLIN;database=ETradeDB;user id=sa;password=sa;multipleactiveresultsets=true;trustservercertificate=true;");
+            optionsBuilder.UseSqlServer("server=AYLIN\\SQLAYLIN;database=ETradeDB;user id=sa;password=sa;multipleactiveresultsets=true;trustservercertificate=true;");
             return new Db(optionsBuilder.Options);
         }
     }

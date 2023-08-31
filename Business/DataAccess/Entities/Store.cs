@@ -1,10 +1,11 @@
 using AppCore.Records.Bases;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Business.DataAccess.Entities
 {
-    public class Store : Record
+    public partial class Store : Record
     {
         [Required]
         [StringLength(150)]
@@ -15,4 +16,12 @@ namespace Business.DataAccess.Entities
         [DisplayName("Virtual")]
         public bool IsVirtual { get; set; }
     }
+    
+    public partial class Store
+    {
+        [NotMapped]
+        [DisplayName("Virtual")]
+        public string IsVirtualDisplay { get; set; }
+    }
+
 }

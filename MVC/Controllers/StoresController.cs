@@ -18,7 +18,7 @@ namespace MVC.Controllers
         // GET: Stores
         public IActionResult Index()
         {
-            List<Store> storeList = null; // TODO: Add get list service logic here
+            List<Store> storeList = _storeService.Query().ToList(); // TODO: Add get list service logic here
             return View(storeList);
         }
 

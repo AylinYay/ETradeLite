@@ -30,6 +30,26 @@ namespace AppCore.Business.DataAccess.EntityFramework.Bases
             return query;
         }
 
+        public virtual List<TEntity> GetList()
+        {
+            return Query().ToList();
+        }
+
+        public virtual List<TEntity> GetList(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Query(predicate).ToList();
+        }
+
+        public virtual TEntity GetItem(int id)
+        {
+            return Query().SingleOrDefault(e => e.Id == id);
+        }
+
+        public virtual bool Exists(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Query().Any(predicate);
+        }
+
         public IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] entitiesToInclude)
         {
             var query = Query(entitiesToInclude);

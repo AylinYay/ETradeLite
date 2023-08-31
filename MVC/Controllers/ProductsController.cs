@@ -45,7 +45,11 @@ namespace MVC.Controllers
             List<Category> categories = _categoryService.Query().ToList();
             //ViewData["CategoryId"] = new SelectList(categories, "Id", "Name");
             ViewBag.CategoryId = new SelectList(categories, "Id", "Name");
-            return View();
+            Product model = new Product()
+            {
+                ExpirationDate = DateTime.Today.AddMonths(6)
+            };
+            return View(model);
         }
 
         // POST: Products/Create
