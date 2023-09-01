@@ -1,3 +1,5 @@
+#nullable disable
+
 using AppCore.Records.Bases;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +9,7 @@ namespace Business.DataAccess.Entities
 {
     public partial class Store : Record
     {
-        [Required]
+        [Required(ErrorMessage = "{0} is required!")]
         [StringLength(150)]
         [DisplayName("Store Name")]
         public string Name { get; set; }

@@ -2,6 +2,7 @@
 using Business.DataAccess.Entities;
 using Business.DataAccess.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MVC.Controllers
 {
@@ -25,10 +26,10 @@ namespace MVC.Controllers
         // GET: Stores/Details/5
         public IActionResult Details(int id)
         {
-            Store store = null; // TODO: Add get item service logic here
+            Store store = _storeService.Query().SingleOrDefault(s => s.Id == id); // TODO: Add get item service logic here
             if (store == null)
             {
-                return NotFound();
+                return View("_Error", "Store not found!");
             }
             return View(store);
         }
@@ -37,6 +38,8 @@ namespace MVC.Controllers
         public IActionResult Create()
         {
             // Add get related items service logic here to set ViewData if necessary and update null parameter in SelectList with these items
+            List<Store> stores = _storeService.Query().ToList();
+            ViewBag.Id = new SelectList(stores, "Id", "Name");
             return View();
         }
 
@@ -50,21 +53,28 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 // TODO: Add insert service logic here
-                return RedirectToAction(nameof(Index));
+                var result = _storeService.Add(store);
+                if (result.IsSuccessful)
+                {
+                    TempData["Message"] = result.Message;
+                    return RedirectToAction(nameof(Index));
+                }              
             }
             // Add get related items service logic here to set ViewData if necessary and update null parameter in SelectList with these items
+            ViewBag.Id = new SelectList(_storeService.Query().ToList(), "Id", "Name");
             return View(store);
         }
 
         // GET: Stores/Edit/5
         public IActionResult Edit(int id)
         {
-            Store store = null; // TODO: Add get item service logic here
+            Store store = _storeService.Query().SingleOrDefault(s => s.Id == id); // TODO: Add get item service logic here
             if (store == null)
             {
-                return NotFound();
+                return View("_Error", "Store not found!");
             }
             // Add get related items service logic here to set ViewData if necessary and update null parameter in SelectList with these items
+            ViewBag.Id = new SelectList(_storeService.Query().ToList(), "Id", "Name", store.Id);
             return View(store);
         }
 
@@ -78,19 +88,25 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 // TODO: Add update service logic here
-                return RedirectToAction(nameof(Index));
+                var result = _storeService.Update(store);
+                if (result.IsSuccessful)
+                {
+                    TempData["Message"] = result.Message;
+                    return RedirectToAction(nameof(Index));
+                }             
             }
             // Add get related items service logic here to set ViewData if necessary and update null parameter in SelectList with these items
+            ViewBag.Id = new SelectList(_storeService.Query().ToList(), "Id", "Name", store.Id);
             return View(store);
         }
 
         // GET: Stores/Delete/5
         public IActionResult Delete(int id)
         {
-            Store store = null; // TODO: Add get item service logic here
+            Store store = _storeService.Query().SingleOrDefault(s => s.Id == id); // TODO: Add get item service logic here
             if (store == null)
             {
-                return NotFound();
+                return View("_Error", "Store not found!");
             }
             return View(store);
         }
@@ -101,6 +117,8 @@ namespace MVC.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             // TODO: Add delete service logic here
+            var result = _storeService.Delete(s => s.Id == id);
+            TempData["Message"] = result.Message;
             return RedirectToAction(nameof(Index));
         }
 	}

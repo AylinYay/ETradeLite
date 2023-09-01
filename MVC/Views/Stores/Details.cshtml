@@ -8,33 +8,11 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<div>
-    <h4>Store</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.IsVirtual)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.IsVirtual)
-        </dd>
-        <dt class="col-2">
-            @Html.DisplayNameFor(model => model.Guid)
-        </dt>
-        <dd class="col-10">
-            @Html.DisplayFor(model => model.Guid)
-        </dd>
-    </dl>
-</div>
+<partial name="_DetailsDelete" model="Model" />
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>&nbsp;|&nbsp;
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to Store List</a>
 </div>
 
 
